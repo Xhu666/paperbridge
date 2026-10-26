@@ -70,7 +70,12 @@ async function prepareTex() {
       const filename = process.platform === 'win32' ? 'TinyTeX-1-windows.exe' : 'TinyTeX-1-darwin.tar.xz';
       const archive = resolve(cache, filename);
       console.log('下载项目专用 TinyTeX；不修改已有系统 TeX。进度表 Time Left 为预计剩余时间。');
-      await command(process.platform === 'win32' ? 'curl.exe' : 'curl', ['-fL', '-C', '-', '--retry', '3', '--connect-timeout', '30', '-o', archive, `https://github.com/rstudio/tinytex-releases/releases/download/daily/${filename}`]);
+      const url = `https://github.com/rstudio/tinytex-releases/releases/download/daily/${filename}`;
+      try {
+        await command(process.platform === 'win32' ? 'curl.exe' : 'curl', ['-fL', '-C', '-', '--retry', '3', '--retry-all-errors', '--retry-delay', '2', '--connect-timeout', '30', '-o', archive, url]);
+      } catch (error) {
+        throw Error(`TinyTeX 下载失败：${error.message}。请检查此电脑能否访问 GitHub（包括下载重定向地址），恢复网络后重新启动可断点续传。也可从 ${url} 手动下载并解压，使 ${localCompiler} 存在后重新启动。此时尚未执行 PDF 编译检查。`);
+      }
       console.log('解压 TinyTeX，首次准备可能需要几分钟…');
       const started = Date.now();
       const timer = setInterval(() => console.log(`  解压中，已用时 ${Math.round((Date.now() - started) / 1000)} 秒…`), 5000);

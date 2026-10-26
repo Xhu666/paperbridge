@@ -27,6 +27,8 @@ cd paperbridge
 
 启动器会检查 Node.js/npm、项目依赖及 PDF 排版环境，补齐缺失依赖，构建前端并打开浏览器。首次准备需要联网；Node.js 和 TinyTeX 安装在项目 `.cache/startup/`，JavaScript 依赖保存在 `node_modules/`。
 
+如果 Windows 在第 `[3/5]` 步下载 TinyTeX 时提示 `curl: (56) Recv failure: Connection was reset`，表示到 GitHub 下载服务的连接被重置。启动器会重试并保留下载进度；恢复网络后再次双击即可续传。下载重试要求 curl 7.71 或以上（执行 `curl.exe --version` 查看；旧版需更新 curl）。若持续无法连接，可在能访问 GitHub 的电脑上从 [TinyTeX 官方发布页](https://github.com/rstudio/tinytex-releases/releases/tag/daily) 下载 `TinyTeX-1-windows.exe`，复制到 Windows 电脑并解压到项目的 `.cache/startup/tex/`，确认存在 `.cache/startup/tex/TinyTeX/bin/windows/xelatex.exe`，再启动。之后补齐 TeX 宏包仍需联网。
+
 默认访问地址为 <http://127.0.0.1:5190>，端口被占用时启动器会选择后续可用端口。保留启动窗口，按 `Ctrl+C` 停止服务。启动本身不会调用模型。
 
 已有 Node.js 时也可执行：
