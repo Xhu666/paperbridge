@@ -85,6 +85,8 @@ async function prepareTex() {
       } finally { clearInterval(timer); }
     }
     process.env.PATH = `${bin}${delimiter}${process.env.PATH || ''}`;
+    console.log('先更新项目专用 TeX 包管理器，再安装排版宏包…');
+    await command(tlmgr, ['update', '--self']);
     console.log(`补齐排版依赖：${texPackages.join(', ')}\n下方由 TeX 包管理器显示各宏包安装过程。`);
     await command(tlmgr, ['install', ...texPackages]);
     if (!await texReady()) throw Error('TeX 安装后检查未通过，请查看上方安装日志');
