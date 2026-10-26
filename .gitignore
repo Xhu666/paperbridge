@@ -15,7 +15,9 @@ Thumbs.db
 
 # 本地测试、案例和无关文档；保留运行提示词和模板许可说明
 /tests/
-/cases/
+/cases/*
+!/cases/README.md
+!/cases/中文论文案例_无人机边缘检测.docx
 /docs/
 /.taste-skill/
 AGENTS.md
