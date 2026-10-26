@@ -1,0 +1,21 @@
+# 依赖、构建产物与本地运行缓存
+node_modules/
+dist/
+.cache/
+coverage/
+*.log
+.DS_Store
+Thumbs.db
+
+# API 配置与密钥（包括示例配置）
+.env
+.env.*
+*.pem
+*.key
+
+# 本地测试、案例和无关文档；保留运行提示词和模板许可说明
+/tests/
+/cases/
+/docs/
+/.taste-skill/
+AGENTS.md
